@@ -37,8 +37,8 @@ export default function MediaPicker({
       const fd = new FormData();
       fd.append("file", f);
       const res = await fetch("/api/upload", { method: "POST", body: fd });
-      const j = await res.json();
-      if (!res.ok) throw new Error(j.error || "Upload gagal");
+      const j = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(j.error || `Upload gagal (${res.status})`);
       await load();
       onPick(j.url as string);
       onClose();

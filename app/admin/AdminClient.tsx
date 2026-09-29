@@ -8,9 +8,9 @@ async function uploadFile(file: File): Promise<string> {
   const fd = new FormData();
   fd.append("file", file);
   const res = await fetch("/api/upload", { method: "POST", body: fd });
-  const j = await res.json();
-  if (!res.ok) throw new Error(j.error || "Upload gagal");
-  return j.url as string;
+  const j = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error((j as { error?: string }).error || `Upload gagal (${res.status})`);
+  return (j as { url: string }).url;
 }
 
 function UploadInput({ value, onChange }: { value: string; onChange: (url: string) => void }) {

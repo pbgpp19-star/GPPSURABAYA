@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  --color-gpp-teal: #0aa5a0;
+  --color-gpp-teal-dark: #07807c;
+  --color-gpp-orange: #f57c1f;
+  --color-gpp-orange-dark: #e0640a;
+  --color-gpp-navy: #0b2a4a;
+  --color-gpp-ink: #101828;
+  --font-display: "Montserrat", "Plus Jakarta Sans", system-ui, sans-serif;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #101828;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1px currentColor;
+}
+
+.btn-gradient {
+  background: linear-gradient(90deg, #10b8a6 0%, #f97316 100%);
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+.btn-gradient:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-style: italic;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+.card-shadow {
+  box-shadow: 0 10px 30px rgba(11, 42, 74, 0.08);
+}
+
+/* Placeholder image styling agar tetap bagus sebelum foto asli diupload */
+.img-fallback {
+  background: linear-gradient(135deg, #0aa5a0 0%, #0b2a4a 55%, #f57c1f 100%);
+}

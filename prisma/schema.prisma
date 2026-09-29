@@ -1,0 +1,59 @@
+// PB.GPP Surabaya - Prisma schema (PostgreSQL / Neon)
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model SiteSetting {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  value     String   @db.Text
+  updatedAt DateTime @updatedAt
+}
+
+model Schedule {
+  id        Int      @id @default(autoincrement())
+  hari      String
+  jam       String
+  tempat    String
+  image     String   @default("")
+  urutan    Int      @default(0)
+  aktif     Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Match {
+  id          Int      @id @default(autoincrement())
+  tanggal     String
+  lawan       String
+  logoLawan   String   @default("")
+  skorKami    Int?
+  skorLawan   Int?
+  status      String   @default("AKAN_DATANG") // AKAN_DATANG | MENANG | KALAH | SERI
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model GalleryItem {
+  id        Int      @id @default(autoincrement())
+  image     String
+  caption   String   @default("")
+  urutan    Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Member {
+  id        Int      @id @default(autoincrement())
+  nama      String
+  level     String   @default("Member")
+  foto      String   @default("")
+  wa        String   @default("")
+  aktif     Boolean  @default(true)
+  createdAt DateTime @default(now())
+}

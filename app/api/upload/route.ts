@@ -22,44 +22,44 @@ export async function POST(req: Request) {
     } catch {
       return NextResponse.json({ error: "Data upload tidak terbaca." }, { status: 400 });
     }
-    const file = form.get("file") as File | null;
-    if (!file || file.size === 0)
+    const file = form.get("file");
+    if (!(file instanceof File) || file.size === 0)
       return NextResponse.json({ error: "Tidak ada file / file kosong." }, { status: 400 });
-    if (file.size > 4_000_000)
+    if (!file.type.startsWith("image/"))
+      return NextResponse.json({ error: "File harus gambar." }, { status: 400 });
+    if (file.size > 8_000_000)
       return NextResponse.json(
-        { error: `File ${(file.size / 1048576).toFixed(1)}MB melebihi batas 4MB. Kecilkan dulu.` },
+        { error: `File ${(file.size / 1048576).toFixed(1)}MB melebihi batas 8MB. Kecilkan dulu.` },
         { status: 413 }
       );
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    const ext = (file.name.split(".").pop() || "jpg").toLowerCase().slice(0, 5);
-    const fname = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
-
-    // Production (Vercel + Blob token): upload ke Vercel Blob agar permanen
-    if (process.env.BLOB_READ_WRITE_TOKEN) {
+    // Cloudinary (seperti project Urrahman) — permanen di local & Vercel
+    const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+    const apiKey = process.env.CLOUDINARY_API_KEY;
+    const apiSecret = process.env.CLOUDINARY_API_SECRET;
+    if (cloudName && apiKey && apiSecret) {
       try {
-        const { put } = await import("@vercel/blob");
-        const blob = await put(`pbgpp/${fname}`, buffer, {
-          access: "public",
-          contentType: file.type || undefined,
-        });
-        return NextResponse.json({ url: blob.url });
+        const { v2: cloudinary } = await import("cloudinary");
+        cloudinary.config({ cloud_name: cloudName, api_key: apiKey, api_secret: apiSecret });
+        const base64 = Buffer.from(await file.arrayBuffer()).toString("base64");
+        const dataUri = `data:${file.type};base64,${base64}`;
+        const result = await cloudinary.uploader.upload(dataUri, { folder: "pbgpp" });
+        return NextResponse.json({ url: result.secure_url as string });
       } catch (e) {
         return NextResponse.json(
-          {
-            error: `Upload ke Blob gagal: ${msg(e)}. Cek BLOB_READ_WRITE_TOKEN di Vercel (jangan yang sensor ****).`,
-          },
+          { error: `Upload Cloudinary gagal: ${msg(e)}` },
           { status: 502 }
         );
       }
     }
 
-    // Lokal / fallback: simpan ke public/uploads
+    // Fallback lokal bila Cloudinary belum dikonfigurasi
     try {
+      const ext = (file.name.split(".").pop() || "jpg").toLowerCase().slice(0, 5);
+      const fname = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
       const dir = path.join(process.cwd(), "public", "uploads");
       await mkdir(dir, { recursive: true });
-      await writeFile(path.join(dir, fname), buffer);
+      await writeFile(path.join(dir, fname), Buffer.from(await file.arrayBuffer()));
       return NextResponse.json({ url: `/uploads/${fname}` });
     } catch (e) {
       return NextResponse.json(

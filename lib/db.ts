@@ -1,4 +1,4 @@
-import { PrismaClient } from "../app/generated/prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 // Bersihkan parameter yang tidak didukung engine Prisma di serverless
 // (mis. channel_binding=require dari Neon) agar koneksi tidak gagal diam-diam.

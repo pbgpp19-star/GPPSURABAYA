@@ -25,10 +25,28 @@ export async function generateMetadata(): Promise<Metadata> {
     // fallback ke logo default
   }
   return {
+    metadataBase: new URL("https://pb-gppsurabaya.site"),
     title: "PB.GPP Surabaya — Play Together, Grow Further",
     description:
       "PB.GPP adalah komunitas badminton di Surabaya untuk bermain, berlatih, menjalin silaturahmi, dan berkembang bersama.",
     icons: { icon: logo },
+    openGraph: {
+      type: "website",
+      locale: "id_ID",
+      url: "https://pb-gppsurabaya.site",
+      siteName: "PB.GPP Surabaya",
+      title: "PB.GPP Surabaya — Play Together, Grow Further",
+      description:
+        "PB.GPP adalah komunitas badminton di Surabaya untuk bermain, berlatih, menjalin silaturahmi, dan berkembang bersama.",
+      images: [{ url: logo, alt: "PB.GPP Surabaya" }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "PB.GPP Surabaya — Play Together, Grow Further",
+      description:
+        "PB.GPP adalah komunitas badminton di Surabaya untuk bermain, berlatih, menjalin silaturahmi, dan berkembang bersama.",
+      images: [logo],
+    },
   };
 }
 

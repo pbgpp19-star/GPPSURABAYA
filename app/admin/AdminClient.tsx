@@ -106,6 +106,10 @@ export default function AdminClient() {
       alert(j.error || "Gagal");
       return;
     }
+    const label =
+      method === "DELETE" ? "Terhapus ✓" : method === "POST" ? "Ditambahkan ✓" : "Tersimpan ✓";
+    setMsg(label);
+    setTimeout(() => setMsg(""), 3000);
     load();
   }
 
@@ -142,7 +146,11 @@ export default function AdminClient() {
           Keluar
         </button>
       </div>
-      {msg && <p className="mt-2 text-sm text-emerald-600 font-bold">{msg}</p>}
+      {msg && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 rounded-full bg-slate-900 px-6 py-3 text-sm font-bold text-white shadow-xl">
+          {msg}
+        </div>
+      )}
 
       {tab === "pengaturan" && (
         <div className="mt-4 rounded-xl border p-5 grid gap-3">

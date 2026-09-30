@@ -162,6 +162,8 @@ export default function AdminClient() {
             ["instagram", "Instagram URL"],
             ["youtube", "YouTube URL"],
             ["alamat", "Alamat"],
+            ["seo_title", "Judul SEO (tab browser & hasil Google)"],
+            ["seo_description", "Deskripsi SEO (cuplikan Google & share link)"],
           ].map(([k, label]) => (
             <label key={k} className="text-sm">
               <div className="font-bold mb-1">{label}</div>

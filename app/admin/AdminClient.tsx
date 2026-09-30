@@ -59,7 +59,7 @@ export default function AdminClient() {
   const [msg, setMsg] = useState("");
   const [pickerFor, setPickerFor] = useState<number | null>(null);
 
-  async function load() {
+  async function load(retry = true) {
     const [s, j, m, g, mb] = await Promise.all([
       fetch("/api/settings").then((r) => r.json()),
       fetch("/api/schedules").then((r) => r.json()),
@@ -72,7 +72,13 @@ export default function AdminClient() {
     setMatches(m.items || []);
     setGallery(g.items || []);
     setMembers(mb.items || []);
-    setDbLive(!!s.dbLive);
+    const live = !!s.dbLive;
+    setDbLive(live);
+    // Database yang baru bangun (cold start) kadang gagal di percobaan pertama:
+    // coba sekali lagi diam-diam tanpa banner peringatan.
+    if (!live && retry) {
+      setTimeout(() => load(false), 2500);
+    }
   }
 
   useEffect(() => {
@@ -117,13 +123,6 @@ export default function AdminClient() {
 
   return (
     <div>
-      {!dbLive && (
-        <div className="rounded-xl bg-amber-100 border border-amber-300 p-4 text-sm">
-          ⚠️ <b>Mode placeholder</b> — DATABASE_URL belum terhubung (Neon). Landing tetap tampil,
-          tapi perubahan admin belum tersimpan permanen. Isi DATABASE_URL di .env / Vercel lalu{" "}
-          <code>npx prisma migrate dev</code>.
-        </div>
-      )}
       <div className="mt-4 flex gap-2 flex-wrap">
         {TABS.map((t) => (
           <button

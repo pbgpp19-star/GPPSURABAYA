@@ -30,6 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description:
       "PB.GPP adalah komunitas badminton di Surabaya untuk bermain, berlatih, menjalin silaturahmi, dan berkembang bersama.",
     icons: { icon: logo },
+    verification: { google: "DOno0MvFIUHnFIDDOJXQcDKczJ0TB1RilFQ2Kg4p1ZY" },
     openGraph: {
       type: "website",
       locale: "id_ID",

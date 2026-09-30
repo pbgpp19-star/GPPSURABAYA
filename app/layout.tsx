@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { getSiteData } from "@/lib/site";
 
 const montserrat = Montserrat({
   variable: "--font-display",
@@ -15,11 +16,21 @@ const jakarta = Plus_Jakarta_Sans({
   weight: ["400", "500", "600", "700", "800"],
 });
 
-export const metadata: Metadata = {
-  title: "PB.GPP Surabaya — Play Together, Grow Further",
-  description:
-    "PB.GPP adalah komunitas badminton di Surabaya untuk bermain, berlatih, menjalin silaturahmi, dan berkembang bersama.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  let logo = "/images/logo-pbgpp.svg";
+  try {
+    const d = await getSiteData();
+    if (d.settings.logo) logo = d.settings.logo;
+  } catch {
+    // fallback ke logo default
+  }
+  return {
+    title: "PB.GPP Surabaya — Play Together, Grow Further",
+    description:
+      "PB.GPP adalah komunitas badminton di Surabaya untuk bermain, berlatih, menjalin silaturahmi, dan berkembang bersama.",
+    icons: { icon: logo },
+  };
+}
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

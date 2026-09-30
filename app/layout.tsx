@@ -18,16 +18,21 @@ const jakarta = Plus_Jakarta_Sans({
 
 export async function generateMetadata(): Promise<Metadata> {
   let logo = "/images/logo-pbgpp.svg";
+  let title = "PB.GPP Surabaya — Play Together, Grow Further";
+  let desc =
+    "PB.GPP adalah komunitas badminton di Surabaya untuk bermain, berlatih, menjalin silaturahmi, dan berkembang bersama.";
   try {
     const d = await getSiteData();
     if (d.settings.logo) logo = d.settings.logo;
+    if (d.settings.seo_title) title = d.settings.seo_title;
+    if (d.settings.seo_description) desc = d.settings.seo_description;
   } catch {
-    // fallback ke logo default
+    // fallback ke default
   }
   return {
     metadataBase: new URL("https://pb-gppsurabaya.site"),
-    title: d.settings.seo_title || "PB.GPP Surabaya",
-    description: d.settings.seo_description || "PB.GPP adalah komunitas badminton di Surabaya.",
+    title,
+    description: desc,
     icons: { icon: logo },
     verification: { google: "DOno0MvFIUHnFIDDOJXQcDKczJ0TB1RilFQ2Kg4p1ZY" },
     openGraph: {
@@ -35,14 +40,14 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: "id_ID",
       url: "https://pb-gppsurabaya.site",
       siteName: "PB.GPP Surabaya",
-      title: d.settings.seo_title || "PB.GPP Surabaya",
-      description: d.settings.seo_description || "PB.GPP adalah komunitas badminton di Surabaya.",
+      title,
+      description: desc,
       images: [{ url: logo, alt: "PB.GPP Surabaya" }],
     },
     twitter: {
       card: "summary_large_image",
-      title: d.settings.seo_title || "PB.GPP Surabaya",
-      description: d.settings.seo_description || "PB.GPP adalah komunitas badminton di Surabaya.",
+      title,
+      description: desc,
       images: [logo],
     },
   };

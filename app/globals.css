@@ -60,6 +60,42 @@ body {
   background: linear-gradient(135deg, #0aa5a0 0%, #0b2a4a 55%, #f57c1f 100%);
 }
 
+/* Transisi pindah halaman: fade + geser naik setiap navigasi */
+main {
+  animation: pageIn 0.55s ease-out both;
+}
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Bar loading gradasi di atas saat pindah halaman */
+.nav-progress {
+  position: fixed;
+  top: 0;
+  left: -40%;
+  height: 3px;
+  width: 40%;
+  z-index: 9999;
+  border-radius: 0 3px 3px 0;
+  background: linear-gradient(90deg, #0aa5a0, #f57c1f);
+  animation: navSlide 0.9s ease-in-out infinite;
+}
+@keyframes navSlide {
+  from {
+    left: -40%;
+  }
+  to {
+    left: 100%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

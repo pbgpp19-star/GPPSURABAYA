@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Montserrat, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import NavigationProgress from "@/components/NavigationProgress";
 import { getSiteData } from "@/lib/site";
 
 const montserrat = Montserrat({
@@ -56,7 +58,12 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="id" className={`${montserrat.variable} ${jakarta.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-white text-slate-900">{children}</body>
+      <body className="min-h-full flex flex-col bg-white text-slate-900">
+        <Suspense fallback={null}>
+          <NavigationProgress />
+        </Suspense>
+        {children}
+      </body>
     </html>
   );
 }

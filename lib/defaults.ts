@@ -15,9 +15,9 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   instagram: "https://instagram.com/",
   youtube: "https://youtube.com/",
   alamat: "Surabaya, Jawa Timur",
-  seo_title: "PB.GPP Surabaya — Play Together, Grow Further",
+  seo_title: "PB.GPP Surabaya | Komunitas Badminton Surabaya – Mabar Rutin",
   seo_description:
-    "PB.GPP adalah komunitas badminton di Surabaya untuk bermain, berlatih, menjalin silaturahmi, dan berkembang bersama.",
+    "PB.GPP adalah komunitas badminton di Surabaya. Mabar rutin tiap Selasa & Sabtu, friendly match badminton, terbuka untuk semua level. Gabung main bareng!",
 };
 
 export const DEFAULT_SCHEDULES = [

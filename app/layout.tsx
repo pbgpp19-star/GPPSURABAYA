@@ -18,9 +18,9 @@ const jakarta = Plus_Jakarta_Sans({
 
 export async function generateMetadata(): Promise<Metadata> {
   let logo = "/images/logo-pbgpp.svg";
-  let title = "PB.GPP Surabaya — Play Together, Grow Further";
+  let title = "PB.GPP Surabaya | Komunitas Badminton Surabaya – Mabar Rutin";
   let desc =
-    "PB.GPP adalah komunitas badminton di Surabaya untuk bermain, berlatih, menjalin silaturahmi, dan berkembang bersama.";
+    "PB.GPP adalah komunitas badminton di Surabaya. Mabar rutin tiap Selasa & Sabtu, friendly match badminton, terbuka untuk semua level. Gabung main bareng!";
   try {
     const d = await getSiteData();
     if (d.settings.logo) logo = d.settings.logo;

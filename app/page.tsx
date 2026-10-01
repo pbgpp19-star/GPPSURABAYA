@@ -14,8 +14,29 @@ export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const data = await getSiteData();
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SportsClub",
+    name: "PB.GPP Surabaya",
+    alternateName: "PB GPP Badminton Community Surabaya",
+    url: "https://pb-gppsurabaya.site",
+    logo: data.settings.logo,
+    image: data.settings.hero_image,
+    description: data.settings.seo_description,
+    sport: "Badminton",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Surabaya",
+      addressRegion: "Jawa Timur",
+      addressCountry: "ID",
+    },
+  };
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar logo={data.settings.logo} waNumber={data.settings.wa_number} waText={data.settings.wa_text} />
       <Reveal>
         <Hero s={data.settings} />

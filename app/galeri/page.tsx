@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SmartImage from "@/components/SmartImage";
 import { getSiteData } from "@/lib/site";
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Galeri Foto Mabar Badminton Surabaya | PB.GPP",
+  description:
+    "Foto-foto keseruan mabar rutin dan friendly match komunitas badminton PB.GPP Surabaya.",
+};
 export default async function GaleriPage() {
   const d = await getSiteData();
   return (

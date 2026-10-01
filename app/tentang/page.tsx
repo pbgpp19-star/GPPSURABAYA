@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SmartImage from "@/components/SmartImage";
 import { getSiteData } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Tentang Kami | Komunitas Badminton Surabaya – PB.GPP",
+  description:
+    "Profil PB.GPP Surabaya: komunitas badminton terbuka untuk semua level. Mabar rutin, friendly match, dan silaturahmi.",
+};
 
 function PageHead({ title, sub }: { title: string; sub: string }) {
   return (

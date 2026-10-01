@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScheduleSection from "@/components/ScheduleSection";
 import { getSiteData } from "@/lib/site";
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Jadwal Mabar Badminton Surabaya Selasa & Sabtu | PB.GPP",
+  description:
+    "Jadwal mabar rutin badminton Surabaya: Selasa 20:00–23:00 dan Sabtu 16:00–21:00. Semua level welcome, gabung PB.GPP!",
+};
 export default async function JadwalPage() {
   const d = await getSiteData();
   return (

@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getSiteData } from "@/lib/site";
 import { waLink } from "@/lib/defaults";
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Gabung Mabar Badminton Surabaya | Kontak PB.GPP",
+  description:
+    "Ingin gabung mabar badminton di Surabaya? Hubungi admin PB.GPP via WhatsApp untuk info jadwal dan pendaftaran member.",
+};
 export default async function KontakPage() {
   const d = await getSiteData();
   return (

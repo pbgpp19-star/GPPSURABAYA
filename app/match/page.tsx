@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MatchSection from "@/components/MatchSection";
 import { getSiteData } from "@/lib/site";
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Hasil Friendly Match Badminton | PB.GPP Surabaya",
+  description:
+    "Rekam jejak friendly match PB.GPP Surabaya melawan klub badminton lain: jadwal tanding, skor, dan hasil pertandingan.",
+};
 export default async function MatchPage() {
   const d = await getSiteData();
   return (
